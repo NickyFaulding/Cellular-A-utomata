@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cellular__A_utomata
@@ -27,14 +21,16 @@ namespace Cellular__A_utomata
 
         Color selected = cBlue;
 
-        RulesCode GameOfLife;
-        CA_Rule_Code CellularAutomata;
+        GameOfLife.Rules GameOfLife;
+        CellularAutomata.Rules CellularAutomata;
+
 
         public Form1()
         {
             InitializeComponent();
-            GameOfLife = new RulesCode();
-            CellularAutomata = new CA_Rule_Code();
+
+            GameOfLife = new GameOfLife.Rules();
+            CellularAutomata = new CellularAutomata.Rules();
             SetLables();
             SetListBox();
         }
@@ -43,13 +39,13 @@ namespace Cellular__A_utomata
         {
             Button newButton = new Button();
 
-            newButton.Width = 25; 
+            newButton.Width = 25;
             newButton.Height = 25;
             newButton.Margin = System.Windows.Forms.Padding.Empty;
             newButton.BackColor = Color.White;
             newButton.FlatStyle = FlatStyle.Flat;
             newButton.FlatAppearance.BorderSize = 0;
-            newButton.Click += ArrBtn_Click; 
+            newButton.Click += ArrBtn_Click;
 
             return newButton;
         }
@@ -77,7 +73,7 @@ namespace Cellular__A_utomata
             {
                 buttonArray.BackColor = selected;
             }
-            else if(buttonArray.BackColor == selected)
+            else if (buttonArray.BackColor == selected)
             {
                 buttonArray.BackColor = Color.White;
             }
@@ -87,6 +83,9 @@ namespace Cellular__A_utomata
         {
             genCount = 0;
             speed = 1;
+
+            CAEnd();
+            GoLEnd();
 
             DisableAllControls();
             DrawButtons();
@@ -171,7 +170,7 @@ namespace Cellular__A_utomata
             {
                 for (int j = 0; j < size; j++)
                 {
-                    if(b[i,j].BackColor != Color.White)
+                    if (b[i, j].BackColor != Color.White)
                     {
                         currentGrid[i, j] = 1;
                     }
@@ -216,10 +215,7 @@ namespace Cellular__A_utomata
             listBox1.Items.Add("Random Grid");
 
             listBox2.DataSource = CellularAutomata.GetAvaliableRules();
-
         }
-
-        
 
         private void btnAdvance_Click(object sender, EventArgs e)
         {
@@ -256,19 +252,29 @@ namespace Cellular__A_utomata
         {
             if (GameOfLifeTimer.Enabled == false)
             {
-                btnGoLAuto.Text = "Stop";
-                GameOfLifeTimer.Enabled = true;
-                btnSpeedUpGoL.Enabled = true;
+                GoLBegin();
             }
             else
             {
-                btnGoLAuto.Text = "Advance Auto";
-                GameOfLifeTimer.Enabled = false;
-                btnSpeedDownGoL.Enabled = false;
-                btnSpeedUpGoL.Enabled = false;
-
-                speed = 1;
+                GoLEnd();
             }
+        }
+
+        public void GoLBegin()
+        {
+            btnGoLAuto.Text = "Stop";
+            GameOfLifeTimer.Enabled = true;
+            btnSpeedUpGoL.Enabled = true;
+        }
+
+        public void GoLEnd()
+        {
+            btnGoLAuto.Text = "Advance Auto";
+            GameOfLifeTimer.Enabled = false;
+            btnSpeedDownGoL.Enabled = false;
+            btnSpeedUpGoL.Enabled = false;
+
+            speed = 1;
         }
 
         private void btnSpeedUp_Click(object sender, EventArgs e)
@@ -283,7 +289,7 @@ namespace Cellular__A_utomata
                 speed++;
             }
 
-            if(speed == maxSpeed)
+            if (speed == maxSpeed)
             {
                 btnSpeedUpGoL.Enabled = false;
             }
@@ -291,7 +297,7 @@ namespace Cellular__A_utomata
 
         private void btnSpeedDown_Click(object sender, EventArgs e)
         {
-            GameOfLifeTimer.Interval = (1000 /(2 * speed));
+            GameOfLifeTimer.Interval = (1000 / (2 * speed));
 
             btnSpeedUpGoL.Enabled = true;
 
@@ -449,7 +455,7 @@ namespace Cellular__A_utomata
                     newCells[i] = 0;
                 }
             }
-            
+
             newCells = CellularAutomata.Advance(currentCells);
 
             for (int i = 0; i < size; i++)
@@ -467,15 +473,14 @@ namespace Cellular__A_utomata
                 else
                 {
                     b[(genCount + 1 + size) % size, i].BackColor = Color.White;
-                }                
+                }
             }
 
             currentCells = newCells;
 
             genCount++;
-
-
         }
+
         public void CAClearGrid()
         {
             for (int i = 1; i < size; i++)
@@ -502,17 +507,26 @@ namespace Cellular__A_utomata
         {
             if (CAtimer.Enabled == false)
             {
-                btnCAauto.Text = "Stop";
-                CAtimer.Enabled = true;
-                btnCAadvance.Enabled = false;
+                CABegin();
             }
             else
             {
-                btnCAauto.Text = "Advance Auto";
-                CAtimer.Enabled = false;
-                btnCAadvance.Enabled = true;
-
+                CAEnd();
             }
+        }
+
+        public void CABegin()
+        {
+            btnCAauto.Text = "Stop";
+            CAtimer.Enabled = true;
+            btnCAadvance.Enabled = false;
+        }
+
+        public void CAEnd()
+        {
+            btnCAauto.Text = "Advance Auto";
+            CAtimer.Enabled = false;
+            btnCAadvance.Enabled = true;
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)

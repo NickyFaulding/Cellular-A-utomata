@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cellular__A_utomata
+﻿namespace Cellular__A_utomata.GameOfLife
 {
-    class RulesCode
+    class Rules
     {
         private const int size = 30;
         private int[,] currentGrid;
@@ -35,17 +29,17 @@ namespace Cellular__A_utomata
             //rule 2 & 3 underpop & overpop
             //rule 4 healthy
 
-            if(currentGrid[i,j] == 0 && neighbourCount == 3)
+            if (currentGrid[i, j] == 0 && neighbourCount == 3)
             {
                 newGrid[i, j] = 1;
             }
-            else if(currentGrid[i, j] == 1 && (neighbourCount < 2 || neighbourCount > 3))
+            else if (currentGrid[i, j] == 1 && (neighbourCount < 2 || neighbourCount > 3))
             {
                 newGrid[i, j] = 0;
             }
-            else if(currentGrid[i, j] == 1 && (neighbourCount == 2 || neighbourCount == 3))
+            else if (currentGrid[i, j] == 1 && (neighbourCount == 2 || neighbourCount == 3))
             {
-                newGrid[i, j] = currentGrid[i,j];
+                newGrid[i, j] = currentGrid[i, j];
             }
         }
 
@@ -57,7 +51,8 @@ namespace Cellular__A_utomata
             {
                 for (int y = -1; y < 2; y++)
                 {
-                    if (currentGrid[(x + i + size) % size, (y + j + size) % size] == 1)  //wrap around edges  (0 - 1 + 30) % 30 = 29
+                    //wrap around edges  (0 - 1 + 30) % 30 = 29
+                    if (currentGrid[(x + i + size) % size, (y + j + size) % size] == 1)
                     {
                         count++;
                     }

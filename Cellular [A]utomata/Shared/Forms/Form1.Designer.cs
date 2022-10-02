@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNewGrid = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -440,8 +441,9 @@
             this.Controls.Add(this.lblGen);
             this.Controls.Add(this.lblSpeed);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "GoL & CA Simulator";
+            this.Text = "Cellular [A]utomata";
             this.groupBoxGoL.ResumeLayout(false);
             this.groupBoxCA.ResumeLayout(false);
             this.groupBoxColours.ResumeLayout(false);
