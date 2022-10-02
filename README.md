@@ -1,9 +1,6 @@
-# Cellular-A-utomata 
-Game of Life &amp; Cellular Automata Simulator.
+# Cellular [A]utomata ◼️🔲◼️
+### Game of Life & Cellular Automata Simulator
 
-# ◼️◼️◼️◼️◼️
-# ◼️◼️🔲◼️◼️
-# ◼️🔲🔲🔲◼️
-# ◼️◼️◼️◼️◼️
+Made using C# Winforms. Simulates John Conway's Game of Life.
 
-I made this project after having a similar assignment at university, I remade the game of life project in C# and then went further and made a simulator for Cellular Automata.
+Also has a Cellular Automate mode which allows simulation of a few of the cellular automata rules.
